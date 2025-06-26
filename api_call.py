@@ -4,11 +4,7 @@ import json
 import random
 import asyncio
 import requests
-
-'''
-This is an example of how to call the ComfyUI API, which is different from the ViewComfy API.
-For the ViewComfy API, see the ViewComfy_API folder: https://github.com/ViewComfy/cloud-public/tree/main/ViewComfy_API.
-'''
+import os.path
 
 generation_parameters = {
     "input_path": "png_lures/model.png",
@@ -144,7 +140,13 @@ class ComfyUIService():
 async def main():
     service = ComfyUIService()
     image_output = await service.generate_image(generation_parameters)
-    with open('output.png', 'wb') as file:
+    
+    directory = './image_output/'
+    file_name = "output.png"
+    filepath = os.path.join(directory, file_name)
+    if not os.path.isdir(directory):
+        os.mkdir(directory)
+    with open(filepath, 'wb') as file:
         file.write(image_output[0])
 
 if __name__ == "__main__":
