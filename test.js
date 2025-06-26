@@ -1,3 +1,5 @@
+// Required package
+// npm install python-shell
 const PythonShell = require('python-shell').PythonShell;
 
 PythonShell.run('api_call.py', null, function (err) {
