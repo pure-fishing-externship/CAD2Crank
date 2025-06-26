@@ -82,7 +82,7 @@ class ComfyUIService():
         response = requests.get(f"http://{server_address}/view", params=params)
         return response.content
 
-    def upload_image(self, input_path, filename, server_address, folder_type="input", image_type="image", overwrite=False):
+    def upload_image(self, input_path, filename, server_address, folder_type="input", image_type="image", overwrite=True):
         """Upload an image or a mask to the ComfyUI server. input_path is the path to the image/mask to upload and image_type is either image or mask"""
         
         with open(input_path, 'rb') as file:
@@ -108,7 +108,7 @@ class ComfyUIService():
                                             )
             
             """Upload the input image to the server"""
-            self.upload_image(input_path=generation_parameters['input_path'], filename='img.jpg', server_address=self.server_address)
+            self.upload_image(input_path=generation_parameters['input_path'], filename='model.png', server_address=self.server_address)
             
             """Send the workflow to the server"""
             prompt_id = await self.queue_prompt(workflow, client_id, self.server_address)

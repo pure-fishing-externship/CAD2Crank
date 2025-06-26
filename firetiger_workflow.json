@@ -1,7 +1,7 @@
 {
   "1": {
     "inputs": {
-      "image": "model (1).png"
+      "image": "model.png"
     },
     "class_type": "LoadImage",
     "_meta": {
