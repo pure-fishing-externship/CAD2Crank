@@ -16,4 +16,3 @@ npm create vite@latest client
 
 # Useful Links
 https://dev.to/gude1/how-to-handle-image-file-uploads-with-multer-in-nodejs-p2b
-https://dev.to/yugjadvani/mastering-server-side-rendering-ssr-in-react-19-with-vite-the-ultimate-guide-for-developers-4mgm
