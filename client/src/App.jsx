@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import axios from 'axios';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [python, setPython] = useState(false);
+
+  const fetchAPI = async () => {
+    const call_python = await axios.post("http://localhost:3000/api");
+  };
+
+  useEffect(() => {
+    fetchAPI();
+  }, []);
 
   return (
     <>
@@ -17,6 +27,9 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <button type="submit" onClick={() => setPython(true, call_python)}>
+        Run My Python
+      </button>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
