@@ -1,46 +1,49 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import axios from 'axios';
+import image from "../../server/storage/image_output/output.png"
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [python, setPython] = useState(false);
 
   const fetchAPI = async () => {
-    const call_python = await axios.post("http://localhost:3000/api");
+    await axios.post("http://localhost:3000/api");
   };
+
+  const [blobImage, setBlobImage] = useState()
+
+  useEffect(() => {
+          // URL to your image
+          fetch(image)
+              .then((response) => response.blob())
+              .then((blob) => {
+                  setBlobImage(blob)
+              })
+              .catch((error) => console.error("Error fetching the image:",error));
+      }, []);
+
+  const request_sent = () => {
+    alert("Image Generation Started");
+  } 
+
+
+  const imageData =  URL.createObjectURL(blobImage)
 
   useEffect(() => {
     fetchAPI();
   }, []);
 
+
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <button type="submit" onClick={() => setPython(true, call_python)}>
-        Run My Python
+      <button onClick={() => {
+        fetchAPI();
+        request_sent();
+      }}>
+        Generate image 
       </button>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div >
+        { imageData ?<img src={imageData} alt="Guido Van Rossum"  /> : 'loading...' }
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }

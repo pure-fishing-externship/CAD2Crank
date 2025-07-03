@@ -5,6 +5,7 @@ const corsOptions = {
     origin: ["http://localhost:5173"],
 };
 const PythonShell = require('python-shell').PythonShell;
+const fs = require('fs')
 
 //const multer = require('multure');
 //const upload = multer({ dest: 'uploads/' });
@@ -23,11 +24,11 @@ app.use(cors(corsOptions));
 
 app.post("/api", python_call)
 
-function python_call() {
+function python_call(req, res) {
     PythonShell.run('./api_call.py', null, function (err) {
-    if (err) throw err;
-    console.log('finished');
-});
+        if (err) throw err;
+        res.send('finished');
+    });
 }
 
 app.listen(3000, () => {
