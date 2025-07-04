@@ -1,35 +1,40 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import axios from 'axios';
-import image from "../../server/storage/image_output/output.png"
+//import image from '/Users/benatkinson/Code/CAD2Crank/server/storage/image_output/output.png';
+
 
 function App() {
+  const image_path = import.meta.env.VITE_ABSOLUTE_PATH;
+  const encodedPath ='/@fs' + image_path;
+  //const image_in = fs.readFileSync(image_path, { encoding: 'base64' });
+  const [imageData, setImageData] = useState(null);
 
   const fetchAPI = async () => {
     await axios.post("http://localhost:3000/api");
   };
 
-  const [blobImage, setBlobImage] = useState()
+  const fetchData = async()=>{
+    try{
+      const res = await fetch(encodedPath);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob)
+      
+      setImageData(url);
 
-  useEffect(() => {
-          // URL to your image
-          fetch(image)
-              .then((response) => response.blob())
-              .then((blob) => {
-                  setBlobImage(blob)
-              })
-              .catch((error) => console.error("Error fetching the image:",error));
-      }, []);
+    }catch(e){
+      console.log(`Error: ${e}`)
+    }
+  }
 
   const request_sent = () => {
+    console.log(image)
     alert("Image Generation Started");
   } 
 
-
-  const imageData =  URL.createObjectURL(blobImage)
-
   useEffect(() => {
     fetchAPI();
+    fetchData();
   }, []);
 
 
@@ -42,8 +47,8 @@ function App() {
         Generate image 
       </button>
       <div >
-        { imageData ?<img src={imageData} alt="Guido Van Rossum"  /> : 'loading...' }
-      </div>
+        { imageData ?<img src={imageData}   /> : 'loading...' }
+      </div> 
     </>
   )
 }
