@@ -4,22 +4,21 @@ const cors = require('cors');
 const corsOptions = {
     origin: ["http://localhost:5173"],
 };
-const PythonShell = require('python-shell').PythonShell;
+const {PythonShell} = require('python-shell');
 
 app.use(cors(corsOptions));
 
-app.get("/api", python_call)
-
-function python_call(req, res, next) {
+app.get("/api", (req, res, next)=> {
     let options = {
         mode: 'text',
+        pythonOptions: ['-u'], 
         args: ['./python/blackSilver_workflow.json'],
     };
-    PythonShell.run('./python/api_call.py', options, function (err) {
-        if (err) throw err;
+    PythonShell.run('./python/api_call.py', options).then(messages=>{
+        console.log('finished');
         res.send('finished');
     });
-}
+});
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
