@@ -1,0 +1,265 @@
+{
+  "1": {
+    "inputs": {
+      "image": "model.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "3": {
+    "inputs": {
+      "image": [
+        "1",
+        0
+      ],
+      "alpha": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "JoinImageWithAlpha",
+    "_meta": {
+      "title": "Join Image with Alpha"
+    }
+  },
+  "4": {
+    "inputs": {
+      "pixels": [
+        "3",
+        0
+      ],
+      "vae": [
+        "5",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "5": {
+    "inputs": {
+      "ckpt_name": "RealVisXL_V5.0_fp16.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "10": {
+    "inputs": {
+      "control_net_name": "xinsir-controlnet-union-sdxl-1.0-promax.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "Load ControlNet Model"
+    }
+  },
+  "13": {
+    "inputs": {
+      "text": "fishing lure with xyz_blacksilver color scheme, clear diving bill",
+      "clip": [
+        "79",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "15": {
+    "inputs": {
+      "seed": 54321,
+      "steps": 30,
+      "cfg": 9.5,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.9000000000000001,
+      "model": [
+        "79",
+        0
+      ],
+      "positive": [
+        "43",
+        0
+      ],
+      "negative": [
+        "43",
+        1
+      ],
+      "latent_image": [
+        "27",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "18": {
+    "inputs": {
+      "samples": [
+        "15",
+        0
+      ],
+      "vae": [
+        "5",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "26": {
+    "inputs": {
+      "mask": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "InvertMask",
+    "_meta": {
+      "title": "InvertMask"
+    }
+  },
+  "27": {
+    "inputs": {
+      "samples": [
+        "4",
+        0
+      ],
+      "mask": [
+        "86",
+        0
+      ]
+    },
+    "class_type": "SetLatentNoiseMask",
+    "_meta": {
+      "title": "Set Latent Noise Mask"
+    }
+  },
+  "43": {
+    "inputs": {
+      "strength": 0.7200000000000002,
+      "start_percent": 0.10000000000000002,
+      "end_percent": 0.7500000000000002,
+      "positive": [
+        "13",
+        0
+      ],
+      "negative": [
+        "51",
+        0
+      ],
+      "control_net": [
+        "10",
+        0
+      ],
+      "image": [
+        "77",
+        0
+      ],
+      "vae": [
+        "5",
+        2
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {
+      "title": "Apply ControlNet"
+    }
+  },
+  "51": {
+    "inputs": {
+      "text": "blurry, low_detail, abstract_style, cartoon, painting, watercolor, text_overlay, extra_objects, distorted_shape, unusual_perspective, low_resolution, fisheye_lens, watermark, background_noise, jagged edges, halo, chromatic aberration, pixelated border, color banding",
+      "clip": [
+        "79",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "77": {
+    "inputs": {
+      "low_threshold": 150,
+      "high_threshold": 250,
+      "resolution": 1024,
+      "image": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "CannyEdgePreprocessor",
+    "_meta": {
+      "title": "Canny Edge"
+    }
+  },
+  "79": {
+    "inputs": {
+      "lora_name": "blackSilver_lora.safetensors",
+      "strength_model": 0.8000000000000002,
+      "strength_clip": 0.8500000000000002,
+      "model": [
+        "5",
+        0
+      ],
+      "clip": [
+        "5",
+        1
+      ]
+    },
+    "class_type": "LoraLoader",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "85": {
+    "inputs": {
+      "iterations": 8,
+      "masks": [
+        "26",
+        0
+      ]
+    },
+    "class_type": "Mask Dilate Region",
+    "_meta": {
+      "title": "Mask Dilate Region"
+    }
+  },
+  "86": {
+    "inputs": {
+      "kernel_size": 10,
+      "sigma": 8,
+      "mask": [
+        "85",
+        0
+      ]
+    },
+    "class_type": "ImpactGaussianBlurMask",
+    "_meta": {
+      "title": "Gaussian Blur Mask"
+    }
+  },
+  "89": {
+    "inputs": {
+      "images": [
+        "18",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  }
+}

@@ -5,27 +5,17 @@ const corsOptions = {
     origin: ["http://localhost:5173"],
 };
 const PythonShell = require('python-shell').PythonShell;
-const fs = require('fs')
-
-//const multer = require('multure');
-//const upload = multer({ dest: 'uploads/' });
 
 app.use(cors(corsOptions));
 
-//app.use(express.json());
+app.get("/api", python_call)
 
-//python api build 
-//console.log('Data sent to python script:', undefined);
-//const python_process = spawner('python3', ['./python/api_call.py', undefined]);
-
-//app.get("/api", (req, res) =>{
-//    res.json({"fruits": ["apple", "strawberry", "banana"]});
-//});
-
-app.post("/api", python_call)
-
-function python_call(req, res) {
-    PythonShell.run('./api_call.py', null, function (err) {
+function python_call(req, res, next) {
+    let options = {
+        mode: 'text',
+        args: ['./python/blackSilver_workflow.json'],
+    };
+    PythonShell.run('./python/api_call.py', options, function (err) {
         if (err) throw err;
         res.send('finished');
     });

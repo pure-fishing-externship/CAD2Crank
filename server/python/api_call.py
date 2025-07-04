@@ -7,12 +7,14 @@ import requests
 import os.path
 import sys
 
+new_workflow = sys.argv[1]
+
 generation_parameters = {
     "input_path": "/Users/benatkinson/Code/CAD2Crank/server/storage/image-input/model.png",
 }
 
 class ComfyUIService():
-    def __init__(self, server_address='localhost:8188', workflow_path='/Users/benatkinson/Code/CAD2Crank/server/firetiger_workflow.json'):
+    def __init__(self, server_address='localhost:8188', workflow_path='/Users/benatkinson/Code/CAD2Crank/server/python'):
         self.server_address = server_address
         self.workflow_path = workflow_path
        
@@ -103,7 +105,7 @@ class ComfyUIService():
        
         try:
             """Update the workflow with the generation parameters"""
-            workflow = self.load_workflow('firetiger_workflow.json')
+            workflow = self.load_workflow(new_workflow)
             workflow = self.update_workflow(workflow, 
                                             input_path=generation_parameters['input_path'],
                                             )

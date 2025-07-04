@@ -9,10 +9,10 @@ function App() {
   const [imageData, setImageData] = useState(null);
 
   const fetchAPI = async () => {
-    await axios.post("http://localhost:3000/api");
+    await axios.get("http://localhost:3000/api");
   };
 
-  const fetchData = async()=>{
+  const fetchData = async() =>{
     try{
       const res = await fetch(encodedPath);
       const blob = await res.blob();

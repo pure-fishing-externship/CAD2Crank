@@ -1,7 +1,7 @@
 {
   "1": {
     "inputs": {
-      "image": "model.png"
+      "image": "model (3).png"
     },
     "class_type": "LoadImage",
     "_meta": {
@@ -60,7 +60,7 @@
   },
   "13": {
     "inputs": {
-      "text": "Brightly colored fishing lure features green, yellow, and orange body, black zigzag patterns, and a transparent plastic bill for underwater diving action.",
+      "text": "fishing lure with xyz_firetiger color scheme, clear diving bill",
       "clip": [
         "79",
         1
@@ -68,7 +68,7 @@
     },
     "class_type": "CLIPTextEncode",
     "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
+      "title": "CLIP Text Encode (Positive)"
     }
   },
   "15": {
@@ -78,7 +78,7 @@
       "cfg": 9.5,
       "sampler_name": "dpmpp_2m",
       "scheduler": "karras",
-      "denoise": 0.9300000000000002,
+      "denoise": 0.9400000000000002,
       "model": [
         "79",
         0
@@ -148,7 +148,7 @@
   "43": {
     "inputs": {
       "strength": 0.7200000000000002,
-      "start_percent": 0.20000000000000004,
+      "start_percent": 0,
       "end_percent": 0.7500000000000002,
       "positive": [
         "13",
@@ -186,7 +186,7 @@
     },
     "class_type": "CLIPTextEncode",
     "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
+      "title": "CLIP Text Encode (Negative)"
     }
   },
   "77": {
@@ -206,7 +206,7 @@
   },
   "79": {
     "inputs": {
-      "lora_name": "lora_kohya.safetensors",
+      "lora_name": "fireTiger_lora.safetensors",
       "strength_model": 0.8000000000000002,
       "strength_clip": 0.8500000000000002,
       "model": [
